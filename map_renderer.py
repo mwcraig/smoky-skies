@@ -59,10 +59,16 @@ MOORHEAD = MarkerInfo(
     ),
 )
 
-MSUM = MarkerInfo(
+MSUM_SMOKE = MarkerInfo(
     name="Moorhead, MN",
     location=(46.873889, -96.767222),
     icon_url=("https://physics.mnstate.edu/craig/MSUMtr.png"),
+)
+
+MSUM_CLEAR = MarkerInfo(
+    name="Moorhead, MN",
+    location=(46.873889, -96.767222),
+    icon_url=("https://physics.mnstate.edu/craig/MSUMt.png"),
 )
 
 TRNP = MarkerInfo(

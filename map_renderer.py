@@ -302,6 +302,7 @@ class SmokeMap:
         fade_steps=10,
         max_n_smoke=None,
         max_smoke_opacity=MAX_SMOKE_OPACITY,
+        smoke_callback=None,
     ):
         """
         Animate the smoke layers.
@@ -320,6 +321,9 @@ class SmokeMap:
 
         max_smoke_opacity: float, optional
             The maximum opacity of the smoke layers.
+
+        smoke_callback: callable, optional
+            A function to call after each smoke layer is added.
         """
         if max_n_smoke is None:
             max_n_smoke = len(self.shapes.names)
@@ -336,6 +340,8 @@ class SmokeMap:
             self.map.remove(self.current_smoke)
             self._smoke_layers.remove(self.current_smoke)
             self.current_smoke = self.next_smoke
+            if smoke_callback is not None:
+                smoke_callback()
 
     def clear_smoke(self):
         """

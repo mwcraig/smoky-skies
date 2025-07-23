@@ -362,8 +362,11 @@ class SmokeMap:
         Turn on the date selection widget.
         """
         if self.date_selection is None:
+            date_names = [f"{name[9:13]}-{name[13:15]}-{name[15:17]}" for name in self.shapes.names]
+            date_numbers = range(len(self.shapes.names))
+            date_options = [(name, number) for name, number in zip(date_names, date_numbers)]
             self.date_selection = ipw.Dropdown(
-                options=range(len(self.shapes.names)),
+                options=date_options,
                 value=0,
                 description="Date:",
                 disabled=False,

@@ -1,5 +1,6 @@
 from datetime import date, timedelta
 from pathlib import Path
+from argparse import ArgumentParser
 import requests
 from zipfile import ZipFile
 
@@ -24,6 +25,11 @@ def url_from_date(a_date):
 
 
 def download_and_unzip(a_date):
+    final_path = Path(f'smoke_extents/{a_date.strftime("%Y%m%d")}')
+    if final_path.exists():
+        print(f"Data for {a_date.strftime("%Y%m%d")} already downloaded, skipping")
+        return
+        
     url = url_from_date(a_date)
     print(f'Getting {url}')
     content = get_one_file(url)
@@ -42,11 +48,14 @@ def download_and_unzip(a_date):
         zipfile.unlink()
 
 
-if __name__ == "__main__":
-    start_date = date(2022, 6, 3)
+def main(start_date):
+    smoke_dir = Path("smoke_extents")
+    smoke_dir.mkdir(parents=True, exist_ok=True)
     delta = timedelta(days=1)
     next_date = start_date
-    while next_date <= start_date + delta: #date.today():
+    while next_date <= date.today():
         download_and_unzip(next_date)
-
         next_date += delta
+
+if __name__ == "__main__":
+    main(date(2024, 1, 6))
